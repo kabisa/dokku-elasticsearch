@@ -60,8 +60,8 @@ service_create_container() {
   retry-docker-command "$ID" "mkdir -p /usr/share/elasticsearch/config/scripts"
   retry-docker-command "$ID" "mkdir -p /usr/share/elasticsearch/data/nodes"
   retry-docker-command "$ID" "chmod 775 /usr/share/elasticsearch/data/nodes"
-  retry-docker-command "$ID" "chown -R elasticsearch:root /usr/share/elasticsearch/data/nodes"
-  retry-docker-command "$ID" "chown -R elasticsearch:root /usr/share/elasticsearch/config"
+  retry-docker-command "$ID" "chown -R `stat -c "%u:%g" /usr/share/elasticsearch/logs` /usr/share/elasticsearch/data"
+  retry-docker-command "$ID" "chown -R `stat -c "%u:%g" /usr/share/elasticsearch/logs` /usr/share/elasticsearch/config"
 
   docker restart "$ID" > /dev/null
 
